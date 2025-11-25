@@ -21,7 +21,7 @@ export default function CreateSecret() {
 
       // 3. ส่ง "ข้อความที่เข้ารหัสแล้ว" ไปฝาก Server
       // (Server จะไม่มีวันรู้อ่านข้อความออก เพราะไม่มี key)
-      const APT_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const API_URL = 'https://secret-vault-api-d2r5.onrender.com';
       const response = await fetch(`${API_URL}/api/secret`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

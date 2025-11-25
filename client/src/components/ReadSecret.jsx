@@ -22,7 +22,7 @@ export default function ReadSecret() {
       const key = hash.substring(1); // ตัดเครื่องหมาย # ออก
 
       // 2. เรียก API ไปขอ Ciphertext จาก Server
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const API_URL = 'https://secret-vault-api-d2r5.onrender.com';
       const response = await fetch(`${API_URL}/api/secret/${id}`);
       
       if (!response.ok) {
