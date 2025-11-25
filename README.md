@@ -4,7 +4,8 @@ A secure, web-based application for sharing sensitive information (passwords, AP
 
 Built with **React, Node.js, Express, and Redis**.
 
-![Project Screenshot](ใส่ลิงค์รูปภาพหน้าเว็บของคุณตรงนี้)
+<img width="1919" height="943" alt="Screenshot 2025-11-26 013913" src="https://github.com/user-attachments/assets/127e1222-ac1a-460c-84a1-980a5d7ddde4" />
+
 
 ## 🚀 Key Features
 
