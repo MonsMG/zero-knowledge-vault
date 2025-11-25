@@ -42,7 +42,7 @@ export default function CreateSecret() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+    <div className="w-full min-h-screen bg-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-lg bg-slate-800 p-8 rounded-xl shadow-2xl border border-slate-700">
         <h1 className="text-3xl font-bold text-green-400 mb-6 text-center font-mono">
           🔐 Zero-Knowledge Vault
