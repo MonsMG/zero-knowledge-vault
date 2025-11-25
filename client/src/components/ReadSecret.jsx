@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { decryptMessage } from '../utils/crypto';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { decryptMessage } from "../utils/crypto";
 
 export default function ReadSecret() {
   const { id } = useParams(); // เอา ID มาจาก URL
@@ -15,18 +15,18 @@ export default function ReadSecret() {
       // 1. ดึง Key จาก URL (ตัวที่อยู่หลังเครื่องหมาย #)
       const hash = window.location.hash;
       if (!hash) {
-        setError('Missing decryption key! (Link might be broken)');
+        setError("Missing decryption key! (Link might be broken)");
         setLoading(false);
         return;
       }
       const key = hash.substring(1); // ตัดเครื่องหมาย # ออก
 
       // 2. เรียก API ไปขอ Ciphertext จาก Server
-      const API_URL = 'https://secret-vault-api-d2r5.onrender.com';
+      const API_URL = "https://secret-vault-api-d2r5.onrender.com";
       const response = await fetch(`${API_URL}/api/secret/${id}`);
-      
+
       if (!response.ok) {
-        throw new Error('Message not found or already destroyed.');
+        throw new Error("Message not found or already destroyed.");
       }
 
       const data = await response.json();
@@ -35,11 +35,10 @@ export default function ReadSecret() {
       const originalText = decryptMessage(data.cipherText, key);
 
       if (!originalText) {
-        setError('Failed to decrypt. Invalid Key.');
+        setError("Failed to decrypt. Invalid Key.");
       } else {
         setDecryptedMessage(originalText);
       }
-
     } catch (err) {
       setError(err.message);
     } finally {
@@ -49,16 +48,23 @@ export default function ReadSecret() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4 font-mono">
-      <div className="w-full max-w-lg bg-slate-800 p-8 rounded-xl shadow-2xl border border-slate-700 text-center">
-        
+    <div
+      className="w-screen min-h-screen flex items-center justify-center p-4 bg-cover bg-center bg-no-repeat relative"
+      style={{ backgroundImage:"url('/img/bg.jpg')" }}
+    >
+      <div className="absolute inset-0 bg-black/50 z-0"></div>
+    {/* <div className="w-screen min-h-screen bg-slate-900 flex items-center justify-center p-4 font-mono"> */}
+      <div className="bg-slate-800 p-8 rounded-xl shadow-2xl border border-slate-700 text-center relative">
         {/* State 1: ยังไม่กดอ่าน */}
         {!isRevealed && !loading && (
           <div className="animate-pulse">
             <div className="text-6xl mb-6">📩</div>
-            <h1 className="text-2xl text-white font-bold mb-2">You have a secure message</h1>
+            <h1 className="text-2xl text-white font-bold mb-2">
+              You have a secure message
+            </h1>
             <p className="text-slate-400 mb-8 text-sm">
-              Warning: This message will self-destruct immediately after viewing.
+              Warning: This message will self-destruct immediately after
+              viewing.
             </p>
             <button
               onClick={handleReveal}
@@ -69,31 +75,32 @@ export default function ReadSecret() {
           </div>
         )}
 
-        {/* State 2: กำลังโหลด */}
+        {/* State 2: กำลังโหลด  */}
         {loading && (
-          <div className="text-green-400">
-            Fetching & Decrypting...
-          </div>
+          <div className="text-green-400">Fetching & Decrypting...</div>
         )}
 
         {/* State 3: อ่านสำเร็จ */}
         {decryptedMessage && (
-          <div className="space-y-6">
-            <div className="text-red-500 text-sm uppercase tracking-widest border-b border-red-900 pb-2 mb-4">
+          <div className="space-y-6 p-5 h-auto w-auto">
+            <div className="text-3xl font-bold bg-gradient-to-r from-red-500 via-green-500 to-blue-500 bg-clip-text text-transparent mb-6 text-center font-mono">
               Burned on Read
             </div>
-            
-            <div className="bg-black p-6 rounded-lg border border-green-900 shadow-inner text-left">
-              <pre className="text-green-400 whitespace-pre-wrap break-words font-mono text-lg">
+
+            <div className="bg-gray-800 p-6 rounded-lg border border-white/10 shadow-lg shadow-white  text-left mb-8">
+              <pre className="text-white whitespace-pre-wrap break-words font-mono text-lg">
                 {decryptedMessage}
               </pre>
             </div>
 
-            <p className="text-slate-500 text-xs italic mt-4">
+            <p className="text-slate-500 text-xs italic ">
               This message no longer exists on the server.
             </p>
 
-            <a href="/" className="inline-block text-slate-400 hover:text-white mt-4 underline">
+            <a
+              href="/"
+              className="inline-block text-slate-400 hover:text-white mt-4 underline"
+            >
               Create your own secret
             </a>
           </div>
@@ -103,14 +110,18 @@ export default function ReadSecret() {
         {error && (
           <div>
             <div className="text-6xl mb-4">💥</div>
-            <h2 className="text-xl text-red-500 font-bold mb-2">Message Destroyed</h2>
+            <h2 className="text-xl text-red-500 font-bold mb-2">
+              Message Destroyed
+            </h2>
             <p className="text-slate-400">{error}</p>
-            <a href="/" className="inline-block mt-6 px-6 py-2 bg-slate-700 text-white rounded hover:bg-slate-600">
+            <a
+              href="/"
+              className="inline-block mt-6 px-6 py-2 bg-slate-700 text-white rounded hover:bg-slate-600"
+            >
               Create New Secret
             </a>
           </div>
         )}
-        
       </div>
     </div>
   );
