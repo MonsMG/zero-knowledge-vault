@@ -29,6 +29,7 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
+  width: 100%;
   min-width: 1320px;
   min-height: 100vh;
 }
@@ -50,7 +51,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #ffffff;
 }
 button:focus,
 button:focus-visible {
