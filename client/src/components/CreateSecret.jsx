@@ -21,7 +21,8 @@ export default function CreateSecret() {
 
       // 3. ส่ง "ข้อความที่เข้ารหัสแล้ว" ไปฝาก Server
       // (Server จะไม่มีวันรู้อ่านข้อความออก เพราะไม่มี key)
-      const response = await fetch('http://localhost:3001/api/secret', {
+      const APT_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const response = await fetch(`${API_URL}/api/secret`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cipherText, ttl: 3600 }), // default 1 ชม.
